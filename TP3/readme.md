@@ -72,4 +72,4 @@ int main(int argc, char *argv[])
 }
 
 #### b-
-<img src="./2comensalesy8hamburguesas.png"/>
+<img src="./2comensalesy8hamburguesas.jpg"/>
