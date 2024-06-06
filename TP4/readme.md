@@ -1,11 +1,11 @@
 #### localhost8000
-<img src="./Imagenes/localhost8000.webp"/>
+<img src="./Imagenes/localhost8000.png"/>
 
 #### localhost1
-<img src="./Imagenes/localhost1.webp"/>
+<img src="./Imagenes/localhost1.png"/>
 
 #### servicios
-<img src="./Imagenes/servicios.webp"/>
+<img src="./Imagenes/servicios.png"/>
 
 #### localhost2
-<img src="./Imagenes/localhost2.webp"/>
+<img src="./Imagenes/localhost2.png"/>

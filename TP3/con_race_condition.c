@@ -20,7 +20,7 @@ void *comer_hamburguesa(void *tid)
 		else
 		{
 			printf("SE TERMINARON LAS HAMBURGUESAS :( \n");
-
+			turno = (turno + 1)% NUMBER_OF_THREADS;
 			pthread_exit(NULL); // forzar terminacion del hilo
 		}
     // SALIDA DE LA ZONA CRÍTICA   

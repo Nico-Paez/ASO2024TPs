@@ -13,10 +13,7 @@ Al comparar los tiempos de ejecucion con 2 compañeros, se puede observar que si
 de que al ejecutar el mismo codigo con hilos es menos tardado que al hacerlo sin ellos.
 
 #### c-
-Previo a descomentar el programa arroja siempre el mismo resultado variando levemente el tiempo, pero al descomentar el ciclo for, este le 
-agrega una carga al cpu haciendo que el proceso de ejecucion sea mas tardado y asi aumentando la carga de trabajo provocando problemas de 
-sincronizacion de los hilos con la variable "acumulador", lo que ocaciona que este arroje resutlados diferentes en cada ejecucion tanto en la 
-variable como en el tiempo de ejecucion.
+Previo a descomentar el programa arroja siempre el mismo resultado variando levemente el tiempo, pero al descomentar el ciclo for, este le agrega una carga al cpu haciendo que el proceso de ejecucion sea mas tardado y asi aumentando la carga de trabajo provocando problemas de sincronizacion de los hilos con la variable "acumulador" que seria la zona critica porque ambos utilizan la misma variable (La zona critica es una seccion del codigo donde multiples hilos intentan acceder y modificar una variable compartida.), lo que ocaciona que este arroje resutlados diferentes en cada ejecucion tanto en la variable como en el tiempo de ejecucion. A esto ultimo se le llama race condition, porque genera una vulnerabilidad al intentar realizar dos o mas operaciones simultaneamente lo que puede llevar a resultados impredecibles o incorrectos.
 
 # 2)
 
@@ -43,7 +40,7 @@ void *comer_hamburguesa(void *tid)
 		else
 		{
 			printf("SE TERMINARON LAS HAMBURGUESAS :( \n");
-
+			turno = (turno + 1)% NUMBER_OF_THREADS;
 			pthread_exit(NULL); // forzar terminacion del hilo
 		}
     // SALIDA DE LA ZONA CRÍTICA   
