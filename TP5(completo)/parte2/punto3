@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#pido y asigno variable nombre
+read -p "Ingrese nombre: " nombre
+
+#forma la url de la api
+URL="https://api.genderize.io/?name=$nombre"
+
+#realiza la solicitud a la api y guarda la respuesta en una variable temporal
+response=$(curl -s $URL)
+
+#verifica si hubo un error en la solicitud y si hubo lo muestra
+if echo "$response" | jq -e .error >/dev/null; then
+        echo "Error: $(echo $response | jq -r .error.message)"
+        exit 1
+fi
+
+#extrae la informacion relevante del json usando jq
+genero=$(echo "$response" | jq -r '.gender')
+probabilidad=$(echo "$response" | jq -r '.probability')
+
+#cambia la probabilidad de 0. a un entero
+probabilidadCargada=$(echo "$probabilidad * 100" | bc)
+
+#muestra la informacion en base al genero
+if [ $genero == "female" ]; then
+echo "$nombre es de genero femenino y su probabilidad es de $probabilidadCargada%."
+elif [ $genero == "male" ]; then
+echo "$nombre es de genero masculino y su probabilidad es de $probabilidadCargada%."
+else
+echo "$nombre no tiene genero"
+fi

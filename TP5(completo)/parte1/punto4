@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#verifica si se proporciona un archivo como argumento
+if [ $# -eq 0 ]; then
+    echo "Uso: $0 <archivo>"
+    exit 1
+fi
+
+archivo=$1
+
+#verifica si el archivo existe
+if [ ! -f "$archivo" ]; then
+    echo "El archivo '$archivo' no existe."
+    exit 1
+fi
+
+#contar el numero de lineas visibles de texto
+num_lineas=$(grep -v "^\s*$" "$archivo" | wc -l)
+
+#contar el numero de palabras
+num_palabras=$(cat "$archivo" | wc -w)
+
+#contar el numero de caracteres (sin espacios)
+num_caracteres_sin_espacios=$(cat "$archivo" | tr -d '[:space:]' | wc -m)
+
+#muestra los resultados
+echo "Numero de lineas: $num_lineas"
+echo "Numero de palabras: $num_palabras"
+echo "Número de caracteres (sin espacios): $num_caracteres_sin_espacios"

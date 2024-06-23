@@ -1,0 +1,77 @@
+#!/bin/bash
+
+#ciclo principal del programa con misma logica que los anteriores
+#en lugar de condicion utilizo el bucle en true y lo corto adelante cuando el usuario digite el numero 5 finalizando el programa
+while true; do
+    	#muesta el menu de opciones
+    	echo "Seleccione la operacion a realizar:"
+    	echo "1- Suma"
+    	echo "2- Resta"
+    	echo "3- Multiplicacion"
+    	echo "4- Division"
+    	echo "5- Salir"
+    
+    	#pide y asigna valor a opcion
+    	read -p "Ingrese opcion: " opcion
+    
+    	#verifica si la opcion ingresada es valida (numeros del 1 al 5)
+    	if ! [[ $opcion =~ ^[1-5]$ ]]; then
+        	echo "Error. Ingrese opcion valida."
+		echo "------------------------------------"
+        	continue
+    	fi
+    
+    	#salir del ciclo si la opcion es 5 (salir)
+    	if [ $opcion -eq 5 ]; then
+        	echo "Saliendo..."
+		#en este caso utilizo break que seria lo mismo que exit 0 (no exit 1 porque eso es cuando finaliza el programa pero con errores), porque exit 0 termina el programa y el break unicamente el do while, pero al no haber nada despues de esto es lo mismo
+        	break
+    	fi
+    
+    	#pido y asigno valor a variables (num1 y num2)
+    	read -p "Ingrese primer numero: " num1
+    	read -p "Ingrese segundo numero: " num2
+
+	#chequeo que se ingresen unicamente numeros enteros en variables (num1 y num2)
+	if ! [[ $num1 =~ ^-?[0-9]+$ ]]; then
+        	echo "Error. Ingrese numeros enteros."
+        	echo "------------------------------------"
+		continue
+	fi
+
+	if ! [[ $num2 =~ ^-?[0-9]+$ ]]; then
+                echo "Error. Ingrese numeros enteros."
+		echo "------------------------------------"
+                continue
+        fi
+    
+    	#realizar la operacion segun la opcion seleccionada
+    	case $opcion in
+        	1)
+            		#suma
+            		resultado=$[ $num1 + $num2 ]
+            		echo "El resultado de la suma es: $resultado"
+            		;;
+        	2)
+            		#resta
+            		resultado=$[ $num1 - $num2 ]   
+            		echo "El resultado de la resta es: $resultado"
+            		;;
+        	3)
+            		#multiplicacion
+            		resultado=$[ $num1 * $num2 ]
+            		echo "El resultado de la multiplicacion es: $resultado"
+            		;;
+        	4)
+            		#division
+            		if [ $num2 -eq 0 ]; then
+            		    	echo "Error. No se puede dividir por cero."
+            		else
+            			resultado=$[ $num1 / $num2 ]
+                		echo "El resultado de la division es: $resultado"
+            		fi
+            		;;
+    	esac
+    
+    	echo "------------------------------------"
+done

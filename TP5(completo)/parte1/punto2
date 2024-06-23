@@ -1,0 +1,44 @@
+#!/bin/bash
+
+#misma logica de bucle que punto1
+while true; do
+	echo "Elegi opcion: "
+	echo "1- Piedra."
+	echo "2- Papel."
+	echo "3- Tijera."
+	echo "4- Dejar de jugar."
+
+	read -p "Ingresa eleccion en base al numero relacionado: " opcion
+	
+	#chequea que se ingrese unicamente un numero del 1 al 4
+	if [[ ! $opcion =~ ^[1-4]$ || -z $opcion ]]; then
+    		echo "Error. Ingrese opcion valida."
+		echo "-----------------------------------------"
+		continue
+	fi
+
+	#si selecciona 4 termino la ejecucion del programa
+	if [ $opcion == 4 ]; then
+		echo "Saliendo..."
+		#uso exit 0 en lugar de exit 1 pq termina sin errores
+		exit 0
+	fi
+
+	#asigno numero random del 1 al 3 para la computadora
+	opcion_computadora=$((RANDOM % 3 + 1))
+
+	#muestro valores seleccionados por ambos
+	echo "Seleccionaste: $opcion"
+	echo "Computadora: $opcion_computadora"
+
+	#muestro resultado en base a las reglas del juego
+	if [ $opcion == $opcion_computadora ]; then
+		echo "Empate!"
+	elif [[ $opcion == 1 && $opcion_computadora == 3 ]] || [[ $opcion == 2 && $opcion_computadora == 1 ]] || [[ $opcion == 3 && $opcion_computadora == 2 ]]; then
+		echo "Ganaste!"
+	else
+		echo "Perdiste!"
+	fi
+
+	echo "-----------------------------------------"
+done

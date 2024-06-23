@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#pido y asigno variable nombre
+read -p "Ingrese nombre para mostrar edad probable: " nombre
+
+#forma la url de la api
+URL="https://api.agify.io/?name=$nombre"
+
+#realiza la solicitud a la api y guarda la respuesta en una variable temporal
+response=$(curl -s $URL)
+
+#verifica si hubo un error en la solicitud y si hubo lo muestra
+if echo "$response" | jq -e .error >/dev/null; then
+        echo "Error: $(echo $response | jq -r .error.message)"
+        exit 1
+fi
+
+#extrae la informacion relevante del json usando jq
+edad=$(echo "$response" | jq -r '.age')
+
+#muestra la informacion
+echo "Edad de $nombre : $edad "

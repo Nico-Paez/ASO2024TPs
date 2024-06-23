@@ -1,0 +1,30 @@
+#!/bin/bash
+
+#asignar numero aleatorio a una variable
+numero_random=$((RANDOM % 100 + 1))
+
+echo "Intenta adivinar numero del 1 al 100"
+
+#inicializo bucle en true para que repita hasta que encuentre el numero
+#en lugar de condicion utilizo el bucle en true y lo corto adelante cuando encuentre finalizando el programa
+while true; do
+
+	read -p "Introduce numero a chequear: " adivinar
+
+	#chequeo que solo se ingrese un numero positivo
+	if [[ ! "$adivinar" =~ ^[0-9]+$ || -z "$adivinar" ]]; then
+		echo "Error. Ingrese numeros positivos."
+		continue
+	fi
+
+	#verifico si num es mas grande/chico o igual y le muestro al usuario
+	if [ $adivinar -lt $numero_random ]; then
+		echo "Intenta con un numero mas alto."
+	elif [ $adivinar -gt $numero_random ]; then
+		echo "Intenta con un numero mas bajo."
+	else
+		echo "Adivinaste!"
+		#pongo exit 0 para finalizar el programa y asi tambien cortar el bucle
+		exit 0
+	fi
+done
